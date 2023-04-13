@@ -15,6 +15,8 @@
 
     if(request.getMethod().equals("POST")) {
         tarefas.put(tarefas.size() + 1, request.getParameter("tarefa"));
+    } else if (request.getParameter("action") != null) {
+        tarefas.remove(Integer.parseInt(request.getParameter("id")));
     }
     
     session.setAttribute("tarefas", tarefas);
@@ -35,7 +37,11 @@
         <hr />
         <ul>
             <c:forEach var="t" items="${tarefas}">
-                <li>${t.value}</li>
+                <li>
+                    <a href="index.jsp?action=delete&id=${t.key}">
+                        ${t.value}
+                    </a>
+                </li>
             </c:forEach>
         </ul>
     </body>
